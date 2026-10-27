@@ -143,5 +143,6 @@ Decode a compressed `<diagram>` body: `urllib.parse.unquote(zlib.decompress(base
 | Data-driven style rules | `DOCS/manual/pages/style-rules/` | Restyles shapes from their data |
 | Dark mode and adaptive colours | `DOCS/manual/editor/appearance/adaptive-colours/`, `dark-mode/`, `dark-mode-design/` | `light-dark(#light,#dark)` values; `adaptiveColors` on mxGraphModel |
 | Math labels | `DOCS/manual/text/math-typesetting/` | `math="1"` on the model |
+| Floor plans | `DOCS/diagram-types/floorplans/`; shapes in `SRC/js/diagramly/sidebar/Sidebar-Floorplan.js` | Top view, scale, layers, one page per floor |
 | Example diagrams | `https://github.com/jgraph/drawio-diagrams` (`dev`: `examples/`, `templates/`) and `SRC/templates/` | Real styles to copy |
 | Repo READMEs | `https://raw.githubusercontent.com/jgraph/drawio/dev/README.md`, `https://raw.githubusercontent.com/jgraph/drawio-desktop/dev/README.md` | Licences, scope, self-hosting |

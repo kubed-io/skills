@@ -66,7 +66,7 @@ below; move or resize existing ones only when the user asks for a rearrangement.
 | Connect two shapes | `add-edge` | Needs a source and a target cell. For a free line, add a vertex with `shape=line;rotation=<deg>` |
 | Re-route or re-point an edge | `edit-edge` | `points: []` clears the waypoints |
 | Put shapes in a box | a vertex with `container=1`, then `parent_id` on its children (or `set-cell-parent`) | Child `x`/`y` are relative to the container |
-| Add many cells at once | `import-diagram` | **The default `mode` is `replace`, which wipes the page.** Pass `add` or `new-page`. `new-page` keeps your ids and takes its name from `<diagram name="…">`; `add` gives the cells new ids, so read them back |
+| Add many cells at once | `import-diagram` | **The default `mode` is `replace`, which wipes the page.** Pass `add` or `new-page`. `new-page` keeps your ids; check its name with `list-pages` (some editors ignore `<diagram name="…">`) and `rename-page` it; `add` gives the cells new ids, so read them back |
 | Attach data | `set-cell-data` | Stored as a string attribute |
 
 Geometry: `x`/`y` is the top-left corner, relative to the parent. `rotation` is
