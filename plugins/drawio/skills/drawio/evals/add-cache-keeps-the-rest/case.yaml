@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: add-cache-keeps-the-rest
+expected_outcome: |
+  A Redis shape sits between API and Postgres, connected API → Redis → Postgres, with no direct API → Postgres edge left. The four original shapes are unmoved. The run reads only what it needs and never exports an image to check itself.
+
+  Needs a live draw.io editor connected through lgazo/drawio-mcp-server, with a page `cache-test` holding User → Ingress → API → Postgres (a cylinder).

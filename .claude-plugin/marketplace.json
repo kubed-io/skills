@@ -1,0 +1,22 @@
+{
+  "name": "kubed",
+  "owner": {
+    "name": "kubed-io",
+    "url": "https://github.com/kubed-io"
+  },
+  "description": "Agent skills from kubed-io, one plugin per tool.",
+  "plugins": [
+    {
+      "name": "drawio",
+      "source": "./plugins/drawio",
+      "description": "Draw and edit draw.io diagrams: small, cheap edits to the diagram open in a live editor through lgazo/drawio-mcp-server, or .drawio files when none is open. Icon styles that render, a map of draw.io's docs, and prompts to draw, edit, tidy and explain.",
+      "category": "diagrams",
+      "keywords": [
+        "drawio",
+        "diagrams.net",
+        "diagrams",
+        "mcp"
+      ]
+    }
+  ]
+}

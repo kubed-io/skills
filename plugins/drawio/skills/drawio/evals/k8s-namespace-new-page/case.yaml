@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: k8s-namespace-new-page
+expected_outcome: |
+  A new page with a `shop` container holding seven labelled Kubernetes icons (current icon2 style) connected in order, no overlaps, other pages untouched. The run does not browse the shape library or export images to check itself.
+
+  Needs a live draw.io editor connected through lgazo/drawio-mcp-server.

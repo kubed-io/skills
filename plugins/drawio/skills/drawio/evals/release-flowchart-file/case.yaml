@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: release-flowchart-file
+expected_outcome: |
+  release-flow.drawio is valid uncompressed draw.io XML with all eight steps, both decisions as diamonds with yes/no edges, every edge attached, nothing overlapping.
+
+  File mode: no editor needed.

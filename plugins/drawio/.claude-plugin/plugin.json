@@ -1,0 +1,20 @@
+{
+  "name": "drawio",
+  "displayName": "draw.io",
+  "description": "Draw and edit draw.io diagrams: small, cheap edits to the diagram open in a live editor through lgazo/drawio-mcp-server, or .drawio files when none is open. Icon styles that render, a map of draw.io's docs, and prompts to draw, edit, tidy and explain.",
+  "version": "0.1.0",
+  "author": {
+    "name": "kubed-io",
+    "url": "https://github.com/kubed-io"
+  },
+  "homepage": "https://github.com/kubed-io/skills/tree/main/plugins/drawio",
+  "repository": "https://github.com/kubed-io/skills",
+  "license": "MIT",
+  "keywords": [
+    "drawio",
+    "diagrams.net",
+    "diagrams",
+    "mxgraph",
+    "mcp"
+  ]
+}
