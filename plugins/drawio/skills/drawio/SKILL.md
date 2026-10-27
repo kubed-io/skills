@@ -67,7 +67,7 @@ below; move or resize existing ones only when the user asks for a rearrangement.
 | Re-route or re-point an edge | `edit-edge` | `points: []` clears the waypoints |
 | Put shapes in a box | a vertex with `container=1`, then `parent_id` on its children (or `set-cell-parent`) | Child `x`/`y` are relative to the container |
 | Add many cells at once | `import-diagram` | **The default `mode` is `replace`, which wipes the page.** Pass `add` or `new-page`. `new-page` keeps your ids; check its name with `list-pages` (some editors ignore `<diagram name="…">`) and `rename-page` it; `add` gives the cells new ids, so read them back |
-| Attach data | `set-cell-data` | Stored as a string attribute |
+| Attach data (Edit Data) | `set-cell-data` | The first key wraps the shape in `<object>` and moves its text to the `label` key: change the text with `set-cell-data` `label` from then on. `placeholders=1` lets the label show `%key%`; `tooltip`, `link` and `tags` are keys too. Find shapes by them with the `attributes` filter |
 
 Geometry: `x`/`y` is the top-left corner, relative to the parent. `rotation` is
 degrees clockwise about the centre. Leave 40 px or more between shapes so edges
