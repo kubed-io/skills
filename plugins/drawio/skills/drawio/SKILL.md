@@ -95,9 +95,11 @@ and their labels have room.
   To keep the export, use the text the call returns.
 - `get-selected-cell`, `import-diagram` and selection exports work through the
   visible page and may switch what the user is looking at.
-- Saving belongs to the editor's host (Nextcloud, VS Code, a browser tab), which
-  may autosave. `save-document` triggers File ▸ Save and can open a prompt.
-  Tell the user whether the change is saved.
+- **Save, then say so.** Edits live in the open tab until its host saves them.
+  Nextcloud's draw.io app autosaves; the VS Code Draw.io extension does not, and
+  closing that tab drops every MCP edit since the last save. Call
+  `save-document` when you finish, in any host (it runs File ▸ Save, and can open
+  a prompt), then tell the user it is saved.
 
 ## File mode
 
@@ -130,6 +132,7 @@ Load only the one you need.
 | `edit-cell` with only the key you wanted to change in `style` | Send the whole style string |
 | Hunting the shape library for Kubernetes icons | [diagrams/kubernetes.md](references/diagrams/kubernetes.md) |
 | Moving existing shapes to make room | Place the new one in free space |
+| Finishing without `save-document` | Save; in VS Code an unsaved tab loses everything on close |
 | `<object>` wrappers in an `add` import | Plain `<mxCell>`s, then `set-cell-data` |
 | `fillColor=%key%` to colour from data | Write the colour; the editor doesn't substitute it |
 | A stencil path drawn in 0–1000 but encoded in the default 100 box | `--box` the size the path was drawn in |
