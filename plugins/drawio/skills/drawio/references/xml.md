@@ -176,7 +176,9 @@ Wrap the cell in `<object>` (or `<UserObject>`, same meaning) to attach data. Th
 - `tags` is space-separated; viewers filter by tag (Edit ▸ Tags). Tags do not affect structure.
 - `link="https://…"` makes the shape a hyperlink; `link="data:page/id,<diagram id>"` jumps to
   another page (drill-down from overview to detail).
-- Style values can read data too: `fillColor=%color%;stylePlaceholders=1;`.
+- Style values can't read data in the shipped editor. jgraph's style reference describes
+  `stylePlaceholders=1` (`fillColor=%color%`), but draw.io 32.6 doesn't implement it and the
+  placeholder is drawn literally. Write the colour into the style.
 
 ## Pages and compressed diagrams
 

@@ -1,6 +1,8 @@
 """Check a draw.io file, or XML exported from the editor, for silent mistakes.
 
-usage: python3 check.py <file.drawio | page.xml> [page name]
+usage: python3 check.py [--allow-overlap] <file.drawio | page.xml> [page name]
+
+--allow-overlap skips the overlap check, for illustrations where shapes overlap on purpose.
 
 Prints one line per problem and exits 1, or prints "ok" and exits 0.
 """
@@ -38,7 +40,7 @@ def boxes_overlap(a, b):
     return a[0] < b[0] + b[2] and b[0] < a[0] + a[2] and a[1] < b[1] + b[3] and b[1] < a[1] + a[3]
 
 
-def check(name, model):
+def check(name, model, allow_overlap=False):
     found, ids = [], {}
     rows = list(cells(model))
     for cid, c, _ in rows:
@@ -72,6 +74,8 @@ def check(name, model):
                 found.append(f"vertex {cid}: no geometry")
             if re.search(r"<\s*(b|i|u|br|font|div|span)\b", label, re.I) and "html=1" not in (c.get("style") or ""):
                 found.append(f"vertex {cid}: HTML in the label but no html=1 in the style")
+    if allow_overlap:
+        return [f"[{name}] {f}" for f in found]
     # sibling vertices that overlap (a container and its own children never count)
     by_parent = {}
     for cid, c, label in rows:
@@ -88,16 +92,18 @@ def check(name, model):
 
 
 def main():
+    args = [a for a in sys.argv[1:] if a != "--allow-overlap"]
+    allow = len(args) != len(sys.argv) - 1
     try:
-        root = ET.parse(sys.argv[1]).getroot()
+        root = ET.parse(args[0]).getroot()
     except ET.ParseError as e:
         print(f"not well-formed XML: {e}")
         sys.exit(1)
-    want = sys.argv[2] if len(sys.argv) > 2 else None
+    want = args[1] if len(args) > 1 else None
     problems = []
     for name, model in pages(root):
         if want is None or name == want:
-            problems += check(name, model)
+            problems += check(name, model, allow)
     print("\n".join(problems) or "ok")
     sys.exit(1 if problems else 0)
 

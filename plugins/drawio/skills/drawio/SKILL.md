@@ -66,12 +66,24 @@ below; move or resize existing ones only when the user asks for a rearrangement.
 | Connect two shapes | `add-edge` | Needs a source and a target cell. For a free line, add a vertex with `shape=line;rotation=<deg>` |
 | Re-route or re-point an edge | `edit-edge` | `points: []` clears the waypoints |
 | Put shapes in a box | a vertex with `container=1`, then `parent_id` on its children (or `set-cell-parent`) | Child `x`/`y` are relative to the container |
-| Add many cells at once | `import-diagram` | **The default `mode` is `replace`, which wipes the page.** Pass `add` or `new-page`. `new-page` keeps your ids; check its name with `list-pages` (some editors ignore `<diagram name="…">`) and `rename-page` it; `add` gives the cells new ids, so read them back |
+| Add many cells at once | `import-diagram` | **The default `mode` is `replace`, which wipes the page.** Pass `add` or `new-page`. `new-page` keeps your ids; check its name with `list-pages` (some editors ignore `<diagram name="…">`) and `rename-page` it. `add` gives the cells new ids (read them back), puts everything on the active layer, and **empties every `<object>`** (data, label, link) while its children lose their parent: import plain `<mxCell>`s, then `set-cell-data`. Layer cells in `add` XML become ordinary nested cells, so write it flat (`parent="1"`) |
 | Attach data (Edit Data) | `set-cell-data` | The first key wraps the shape in `<object>` and moves its text to the `label` key: change the text with `set-cell-data` `label` from then on. `placeholders=1` lets the label show `%key%`; `tooltip`, `link` and `tags` are keys too. Find shapes by them with the `attributes` filter |
 
 Geometry: `x`/`y` is the top-left corner, relative to the parent. `rotation` is
 degrees clockwise about the centre. Leave 40 px or more between shapes so edges
 and their labels have room.
+
+### Editor features and their tools
+
+| In the editor | Through the MCP | Gap |
+|---|---|---|
+| Edit Style, Arrange (geometry, rotation) | `edit-cell` | — |
+| Edit Data, Link, Tooltip, Tags | `set-cell-data` (`link`: `data:page/id,<page id>` jumps to a page) | — |
+| Layers | `create-layer` (returns the id), `set-active-layer` (new cells and `add` imports land there), `move-cell-to-layer` (lands on top of that layer), `list-layers`; or `parent_id` = a layer id | No tool renames, hides or locks a layer. `edit-cell` accepts `locked=1` on a layer, but `list-layers` still says unlocked |
+| Tables | import the table XML ([xml.md](references/xml.md)); `edit-cell` `text` on a cell | — |
+| Freehand, smooth custom shapes | `python3 scripts/stencil.py` turns SVG path data into a `shape=stencil(…)` style | Its `--box` must match the path's coordinates |
+| Page size, background, grid | none | Only through `import-diagram` `new-page` |
+| Style from data (`stylePlaceholders`) | none | In jgraph's style reference, not in the shipped editor: `%color%` stays literal |
 
 ### Check, then say what is saved
 
@@ -93,7 +105,8 @@ Write uncompressed XML with the skeleton in [xml.md](references/xml.md), then
 check it: `python3 scripts/check.py <file>` (run from this skill's folder) reports
 broken references, edges with a missing end, overlapping shapes and HTML labels
 without `html=1`. It also checks XML exported from the live editor, and decodes
-compressed pages.
+compressed pages. Pass `--allow-overlap` for illustrations, where shapes overlap
+on purpose.
 
 ## References
 
@@ -103,7 +116,7 @@ Load only the one you need.
 |---|---|
 | XML skeleton, cells, edges, containers, layers, decoding | [references/xml.md](references/xml.md) |
 | Colours, shapes, sizes, spacing, a review checklist | [references/style.md](references/style.md) |
-| A particular kind of diagram | [references/diagrams/](references/diagrams/) — one file per kind |
+| A particular kind of diagram, or a picture | [references/diagrams/](references/diagrams/) — one file per kind |
 | Anything else: a style key, an icon name, CSV import, embed mode | [references/docs-map.md](references/docs-map.md). Look it up rather than guess |
 
 ## Common mistakes
@@ -117,6 +130,9 @@ Load only the one you need.
 | `edit-cell` with only the key you wanted to change in `style` | Send the whole style string |
 | Hunting the shape library for Kubernetes icons | [diagrams/kubernetes.md](references/diagrams/kubernetes.md) |
 | Moving existing shapes to make room | Place the new one in free space |
+| `<object>` wrappers in an `add` import | Plain `<mxCell>`s, then `set-cell-data` |
+| `fillColor=%key%` to colour from data | Write the colour; the editor doesn't substitute it |
+| A stencil path drawn in 0–1000 but encoded in the default 100 box | `--box` the size the path was drawn in |
 
 ## Add what you learn
 
