@@ -66,7 +66,7 @@ below; move or resize existing ones only when the user asks for a rearrangement.
 | Connect two shapes | `add-edge` | Needs a source and a target cell. For a free line, add a vertex with `shape=line;rotation=<deg>` |
 | Re-route or re-point an edge | `edit-edge` | `points: []` clears the waypoints |
 | Put shapes in a box | a vertex with `container=1`, then `parent_id` on its children (or `set-cell-parent`) | Child `x`/`y` are relative to the container |
-| Add many cells at once | `import-diagram` | **The default `mode` is `replace`, which wipes the page.** Pass `add` or `new-page`. `new-page` keeps your ids; check its name with `list-pages` (some editors ignore `<diagram name="…">`) and `rename-page` it. `add` gives the cells new ids (read them back), puts everything on the active layer, and **empties every `<object>`** (data, label, link) while its children lose their parent: import plain `<mxCell>`s, then `set-cell-data`. Layer cells in `add` XML become ordinary nested cells, so write it flat (`parent="1"`) |
+| Add many cells at once | `import-diagram` | **The default `mode` is `replace`, which wipes the page.** Pass `add` or `new-page`. `new-page` keeps your ids and `<object>` data, so data goes in that way; check its name with `list-pages` (some editors ignore `<diagram name="…">`) and `rename-page` it. `add` gives the cells new ids (read them back), puts everything on the active layer, and **empties every `<object>`** (data, label, link) while its children lose their parent: import plain `<mxCell>`s, then `set-cell-data`. Layer cells in `add` XML become ordinary nested cells, so write it flat (`parent="1"`) |
 | Attach data (Edit Data) | `set-cell-data` | The first key wraps the shape in `<object>` and moves its text to the `label` key: change the text with `set-cell-data` `label` from then on. `placeholders=1` lets the label show `%key%`; `tooltip`, `link` and `tags` are keys too. Find shapes by them with the `attributes` filter |
 
 Geometry: `x`/`y` is the top-left corner, relative to the parent. `rotation` is
@@ -84,6 +84,8 @@ and their labels have room.
 | Freehand, smooth custom shapes | `python3 scripts/stencil.py` turns SVG path data into a `shape=stencil(…)` style | Its `--box` must match the path's coordinates |
 | Page size, background, grid | none | Only through `import-diagram` `new-page` |
 | Style from data (`stylePlaceholders`) | none | In jgraph's style reference, not in the shipped editor: `%color%` stays literal |
+| Any library shape (ArchiMate, BPMN, AWS, …) | its style string, e.g. from the library's `Sidebar-*.js` | None: the editor fetches a library's code the first time a style names it. Nothing to import, and it renders even when the shape tools don't list that library |
+| Plugins (Extras ▸ Plugins: `props`, `trees`, …) | none: they are JavaScript in the user's tab, enabled per browser (or `p=props;trees` in the editor URL) | You can't turn them on or call them. Draw for them instead: [mindmap.md](references/diagrams/mindmap.md) for `trees`; `props` shows a selected shape's data fields |
 
 ### Check, then say what is saved
 
