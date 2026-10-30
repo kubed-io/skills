@@ -1,0 +1,19 @@
+{
+  "name": "ultrapowers",
+  "displayName": "Ultrapowers",
+  "description": "The turns of an issue-to-pull-request agent flow, as prompts on top of superpowers: draft the spec, plan once it is approved, build the plan a task at a time, answer failed checks and reviews, and review the change with a security pass by a subagent.",
+  "version": "0.1.0",
+  "author": {
+    "name": "kubed-io",
+    "url": "https://github.com/kubed-io"
+  },
+  "homepage": "https://github.com/kubed-io/skills/tree/main/plugins/ultrapowers",
+  "repository": "https://github.com/kubed-io/skills",
+  "license": "MIT",
+  "keywords": [
+    "superpowers",
+    "agents",
+    "github",
+    "pull-requests"
+  ]
+}

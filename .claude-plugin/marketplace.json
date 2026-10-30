@@ -17,6 +17,18 @@
         "diagrams",
         "mcp"
       ]
+    },
+    {
+      "name": "ultrapowers",
+      "source": "./plugins/ultrapowers",
+      "description": "The turns of an issue-to-pull-request agent flow, as prompts on top of superpowers: draft the spec, plan once it is approved, build the plan a task at a time, answer failed checks and reviews, and review the change with a security pass by a subagent.",
+      "category": "development",
+      "keywords": [
+        "superpowers",
+        "agents",
+        "github",
+        "pull-requests"
+      ]
     }
   ]
 }
