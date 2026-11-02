@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: inline-servers-ignore-tools-allowlist
+expected_outcome: |
+  Says the agent will not end up with one tool: the tools allowlist strips built-ins and inherited session servers, but every tool of the agent's own inline servers stays. Recommends disallowedTools to remove the unwanted inline tools.

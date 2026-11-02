@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: strict-mcp-config-agent-servers
+expected_outcome: |
+  The reviewer has docs (inherited from --mcp-config) and tickets (its inline definition connects even under strict). grafana is missing: a name reference only reuses a session server and strict removed it, with no error. The .mcp.json servers and the claude.ai connectors are not available.
