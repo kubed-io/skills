@@ -32,6 +32,8 @@ the diagram you have open: one new box, one re-pointed arrow, while you watch. N
   confidently named empty boxes.
 - **A map of the docs.** Every style key, shape index, file format and API — with the cheap way to
   fetch each one.
+- **Hand off the whole diagram.** The `drawio:diagrammer` subagent draws it in its own context, so the
+  main conversation gets a two-line report instead of thirty tool calls.
 - **Grows as you use it.** One reference file per kind of diagram. Learn something, add a line.
 
 [`plugins/drawio`](plugins/drawio/skills/drawio/SKILL.md)

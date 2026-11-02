@@ -10,6 +10,7 @@ A public plugin marketplace. Claude Code installs from it, and kubed's mcp-kb se
 plugins/<plugin>/
   .claude-plugin/plugin.json        name, version, description
   commands/<prompt>.md              prompts: a slash command in Claude Code, an MCP prompt in kb
+  agents/<agent>.md                 subagents: <plugin>:<agent> in Claude Code (mcpServers, hooks, permissionMode ignored)
   skills/<skill>/
     SKILL.md                        short: when, how, common mistakes, where to look next
     references/                     loaded on demand; one topic per file
