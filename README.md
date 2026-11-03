@@ -54,6 +54,8 @@ of its own: a label, a push, a review, red checks.
   review thread by receiving-code-review.
 - **A review with a security pass.** `review` reviews the whole branch, after a subagent
   security-reviews the diff.
+- **A bug, assessed, not fixed.** `debug-report` finds what happens and why by systematic debugging,
+  from the code and the live system, and reports the evidence, the cause and a fix.
 
 [`plugins/ultrapowers`](plugins/ultrapowers/commands)
 
