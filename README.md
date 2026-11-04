@@ -56,6 +56,9 @@ of its own: a label, a push, a review, red checks.
   security-reviews the diff.
 - **A bug, assessed, not fixed.** `debug-report` finds what happens and why by systematic debugging,
   from the code and the live system, and reports the evidence, the cause and a fix.
+- **One issue, in parts.** `make-sub-issue` writes a sub-issue Dr K accepted, as its form asks;
+  `sub-issue` starts one; `sub-issue-added` fits in one Dr K added; `sub-issue-closed` realigns
+  the family when one closes.
 
 [`plugins/ultrapowers`](plugins/ultrapowers/commands)
 
