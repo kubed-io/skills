@@ -147,6 +147,11 @@ lists the events it hooks and every `$` call it makes; read that first.
   swapped the URI for its path; the permission rule (`Bash(python3 *)`) matched the rewritten
   command, and the transcript keeps the model's. A matcher takes literals only (a RegExp selects
   nothing), so the hook takes every Bash call and scans it. **tested** 2.1.317
+- **Auto mode won't judge a rewritten call.** Its classifier reviews the model's input, so a
+  hook that changes it gets "no verdict: a hook changed this call's input", with the rewritten
+  input to send again. The model's second, identical call passes. A permission rule that matches
+  the rewritten command (`Bash(python3 *)`) skips the classifier and the round trip. **tested**
+  2.1.317
 - **`prompt.compose` runs only for the default prompt.** A section added there never reaches an
   `--agent` main session or a subagent: an agent's own prompt replaces the default, and nothing is
   composed. To tell every session something, a mod answers `classic.SessionStart` (main sessions,
