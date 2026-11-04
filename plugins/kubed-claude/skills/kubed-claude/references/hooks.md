@@ -147,3 +147,8 @@ lists the events it hooks and every `$` call it makes; read that first.
   swapped the URI for its path; the permission rule (`Bash(python3 *)`) matched the rewritten
   command, and the transcript keeps the model's. A matcher takes literals only (a RegExp selects
   nothing), so the hook takes every Bash call and scans it. **tested** 2.1.317
+- **`prompt.compose` runs only for the default prompt.** A section added there never reaches an
+  `--agent` main session or a subagent: an agent's own prompt replaces the default, and nothing is
+  composed. To tell every session something, a mod answers `classic.SessionStart` (main sessions,
+  `--agent` ones too) and `classic.SubagentStart` with `{ ...await next(e), additionalContext:
+  [text] }`. **tested** 2.1.317, each with its own code word
