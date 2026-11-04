@@ -143,7 +143,31 @@ its body.
 | Tools | No background filter: `AskUserQuestion`, resource tools, all of it, narrowed by `tools` | Filtered as above |
 | `initialPrompt` | Sent as the first turn | Ignored |
 | `omitClaudeMd`, `autoCompactWindow` | Ignored | Apply |
-| Inline `mcpServers` | Connect at startup, beside `.mcp.json` | Connect for the run |
+| The agent's own `mcpServers` | **Don't connect.** Give the servers with `--mcp-config`, `.mcp.json` or a plugin, and narrow them with `tools` | Connect for the run |
+
+**tested** 2.1.316: an agent's `mcpServers` were ignored under `--agent`, whether
+it came as `--agents` JSON or as a project agent file, with or without
+`--strict-mcp-config`. The same `--agents` definition run as a subagent connected
+its server. A plugin's own MCP servers do reach an `--agent` plugin agent through
+`tools` (a whole server can be one entry, `mcp__plugin_<plugin>_<server>`), but
+`--strict-mcp-config` drops plugin servers. Agents a mod registers can't be
+picked with `--agent` at all: the name is resolved before the mod runs. Nor can
+a `SessionStart` hook write the file in time: an unknown `--agent` name fails
+before any hook runs. A dynamic main agent has to exist before launch, as
+`--agents` JSON or a file a step wrote first.
+
+**`tools` lists what exists; it grants nothing.** Under `claude -p`, an MCP tool in
+an agent's `tools` was still denied ("you haven't granted it yet") until
+`permissions.allow` named it. No frontmatter field grants permissions. A rule
+can cover one server (`mcp__plugin_ap_kbA`, `mcp__plugin_ap_kbA__*`), not a
+plugin's servers (`mcp__plugin_ap_*` was denied). A plugin's own `PreToolUse`
+hook returning `permissionDecision: "allow"` for `mcp__plugin_<plugin>_.*`
+approved them with no allow list; one with no matcher approved Bash and Write too, and a
+`permissions.deny` rule still won over it. **tested** 2.1.316
+
+The `agent` **setting** does what `--agent` does: `--settings
+'{"agent":"kubed-runner:spec",…}'` made a plugin agent the main session, with its
+`tools`. The agent's own `model` beat the settings' `model`. **tested** 2.1.316
 
 An agent that reads `skill://` resources fine under `--agent` breaks when the
 same file runs as a background subagent.

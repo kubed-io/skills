@@ -2,7 +2,7 @@
   "name": "kubed-claude",
   "displayName": "kubed-claude",
   "description": "Field notes on Claude Code, checked by running it: what a subagent really gets, agent files and their MCP servers, prompts as plugin commands and MCP prompts, MCP config and skills served over MCP, and headless runs. Grows as we learn.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "kubed-io",
     "url": "https://github.com/kubed-io"

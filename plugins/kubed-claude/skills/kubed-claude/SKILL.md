@@ -1,6 +1,6 @@
 ---
 name: kubed-claude
-description: "Use when building on Claude Code itself: writing a subagent or agent file, deciding which tools, MCP servers or other agents an agent gets, running `claude -p` or `--agent` headless, packaging skills, commands or agents in a plugin, serving skills or prompts from an MCP server, or when Claude Code does something its docs didn't prepare you for. Also use before telling anyone what a subagent can see or do."
+description: "Use when building on Claude Code itself: writing a subagent or agent file, deciding which tools, MCP servers or other agents an agent gets, running `claude -p` or `--agent` headless, packaging skills, commands or agents in a plugin, writing hooks or a mod, choosing a marketplace or plugin source, serving skills or prompts from an MCP server, or when Claude Code does something its docs didn't prepare you for. Also use before telling anyone what a subagent can see or do."
 ---
 
 # Claude Code
@@ -36,7 +36,8 @@ Load only the one you need.
 | Prompts: plugin commands, MCP prompts, arguments, why one is missing from the slash menu | [prompts.md](references/prompts.md) |
 | MCP: where servers come from, `--strict-mcp-config`, instructions, resources vs tools, skills served over MCP | [mcp.md](references/mcp.md) |
 | Headless: `claude -p`, `--agents`/`--agent`, settings and hooks, channels, cost | [headless.md](references/headless.md) |
-| Plugins: layout, what plugin agents ignore, `${CLAUDE_PLUGIN_ROOT}`, where to keep agents | [plugins.md](references/plugins.md) |
+| Plugins: layout, what plugin agents ignore, ways to load one without a marketplace, what an install fetches, marketplace vs plugin, where to keep agents | [plugins.md](references/plugins.md) |
+| Hooks: the five handler types (`command`, `http`, `mcp_tool`, `prompt`, `agent`), where hooks live, events, mods that register tools and agents in code | [hooks.md](references/hooks.md) |
 | Which official page answers what | [docs-map.md](references/docs-map.md) |
 
 ## Common mistakes
@@ -47,7 +48,10 @@ Load only the one you need.
 | `tools: [mcp__a__x]` to limit an agent to one tool of its own MCP server | `tools` doesn't filter the agent's own `mcpServers`. Add `disallowedTools` for the rest |
 | `- grafana` (a name) in `mcpServers` of an agent that runs under `--strict-mcp-config` | A name only reuses a session server, and strict removed it. Write the full definition |
 | Counting on a subagent to see MCP server instructions | Sometimes it does, sometimes not. Name the starting point in the agent's own prompt |
-| `mcpServers`, `hooks` or `permissionMode` on a plugin's agent | Ignored there. Use a user or project agent file |
+| `mcpServers`, `hooks` or `permissionMode` on a plugin's agent | Ignored there. Register it from a mod with `$.agent.register`, or use a user or project agent file |
+| An `mcp_tool` hook on `SessionStart` to set up the session | Skipped at launch: MCP servers aren't up yet. Use a `command` hook ([hooks.md](references/hooks.md)) |
+| Telling someone `--sparse` hides the plugins left out | The catalog still lists them, and installing one fails with `Source path does not exist` ([plugins.md](references/plugins.md)) |
+| A `github` plugin source for one folder of a big repository | It clones the whole repository. Use `git-subdir` ([plugins.md](references/plugins.md)) |
 | `claude -p --allowedTools 'x' "the prompt"` | `--allowedTools` takes every word after it. Pipe the prompt on stdin |
 | Saying a new agent file is ready in the open session | It may not show until a later turn or a new session. Check the agent list first |
 | A channel to message a headless run | Channels never register in `-p`. Use hooks that read an inbox ([headless.md](references/headless.md)) |

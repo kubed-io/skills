@@ -65,6 +65,32 @@ it doesn't use the MCP skills extension (`skills/list`, `skills/get`). So:
 | A client without resources (n8n, claude.ai) | Tools mode again |
 | Behind a multiplexing gateway (agentgateway) | Resource URIs are rewritten to `<target>+<uri>` and bare ones refused. Tools mode, or a resource prefix the server applies itself |
 
+## Long-running work
+
+**docs** (`mcp`, Claude Code 2.1.316; MCP spec 2026-07-28):
+
+- **No monitors in MCP.** A plugin monitor (`monitors/monitors.json`) is a shell
+  command whose output reaches Claude as notifications. It is interactive only, and
+  never starts under `-p`.
+- **MCP tasks:**
+  - **What it is.** The tasks extension, `io.modelcontextprotocol/tasks`. In
+    2025-11-25 tasks were core and experimental; in 2026-07-28 they are an
+    extension.
+  - **How it runs.** A server answers `tools/call` with `resultType: "task"`.
+    Claude Code then polls `tasks/get`, may send `tasks/cancel`, and doesn't use
+    `tasks/result` or `tasks/list`.
+  - **Where it works.** Beta, 2.1.304+, main conversation only (never a subagent),
+    on the 2026-07-28 runtime. Interactive sessions, or `-p --input-format
+    stream-json` with `CLAUDE_AUTO_BACKGROUND_TASKS=1`. A one-shot `claude -p
+    "…"` gets none.
+- **Plain long calls.** A main-conversation call past two minutes moves to
+  `/tasks` (`CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`). `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1`
+  turns that off, and issue-agent sets it. Progress notifications keep a call
+  alive against the idle timeout, not the wall-clock one.
+- **Watching data.** Claude Code acts on `list_changed`. Its docs never mention
+  `resources/subscribe` / `notifications/resources/updated`, so assume they're not
+  used until tested.
+
 ## Probe a server by hand
 
 ```bash
