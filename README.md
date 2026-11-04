@@ -54,8 +54,9 @@ of its own: a label, a push, a review, red checks.
   review thread by receiving-code-review.
 - **A review with a security pass.** `review` reviews the whole branch, after a subagent
   security-reviews the diff.
-- **A bug, assessed, not fixed.** `debug-report` finds what happens and why by systematic debugging,
-  from the code and the live system, and reports the evidence, the cause and a fix.
+- **A bug, assessed, then fixed.** `debug-report` finds what happens and why by systematic
+  debugging, from the code and the live system, and reports the evidence, the cause and a fix;
+  `fix-approved` builds that fix test-first once the report is approved, with no plan.
 - **One issue, in parts.** `make-sub-issue` writes a sub-issue Dr K accepted, as its form asks;
   `sub-issue` starts one; `sub-issue-added` fits in one Dr K added; `sub-issue-closed` realigns
   the family when one closes.
