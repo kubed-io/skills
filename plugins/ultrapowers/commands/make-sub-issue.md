@@ -1,6 +1,6 @@
 ---
 description: Dr K ticked one of the sub-issues you suggested. Write it whole, as its form asks, from what this conversation settled.
-argument-hint: <type>: <title>
+argument-hint: "<type>: <title>"
 ---
 Dr K accepted this sub-issue from your suggestions: $ARGUMENTS
 
