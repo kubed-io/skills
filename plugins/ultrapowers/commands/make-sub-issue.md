@@ -3,6 +3,6 @@ description: Dr K ticked one of the sub-issues you suggested. Write it whole, as
 arguments: [type]
 argument-hint: "<type>: <title>"
 ---
-Dr K accepted one of the sub-issues you suggested, a $type: its title follows this command.
+Dr K accepted one of the sub-issues you suggested — $type the rest of this command is its title.
 
 Write it now as a whole issue, filling every field of the form your output schema gives, from what this conversation settled about this part: what it is, why it is its own issue, what done looks like, and what it needs from the others. Write it for the agent who picks it up in this same session: name the files, rulings and decisions it needs, so its first turn can decide notes or spec without asking again. Keep the title unless it no longer fits. The job files it and links it under the parent.
